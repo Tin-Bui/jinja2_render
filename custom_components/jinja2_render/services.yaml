@@ -1,0 +1,16 @@
+# Service to render and output a template
+render_template:
+  description: Render and output a template
+  fields:
+    template_path:
+      description: Path to the template file
+      example: "templates/autolights.yaml.jinja2"
+      required: true
+      selector:
+        text:
+    output_path:
+      description: Path to the output file
+      example: "templates/autolights.yaml"
+      required: true
+      selector:
+        text:
