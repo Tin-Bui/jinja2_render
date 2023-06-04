@@ -52,12 +52,17 @@ async def async_setup(hass, config):
         }
     )
 
+    logger.info(f"{DOMAIN}:Registering component.")  
+
+    async def wrapper(call):
+        return await render_template_service(hass, call)
+
     async_register_admin_service(
-        hass,
-        DOMAIN,
-        "render_template",
-        lambda call: render_template_service(hass, call),
-        schema=schema
+        hass,  
+        DOMAIN,  
+        "render_template",  
+        wrapper,  
+        schema=schema  
     )
 
     return True
