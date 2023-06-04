@@ -1,0 +1,10 @@
+{
+  "domain": "jinja2_render",
+  "name": "Jinja2 Render",
+  "version": "1.0.0",
+  "documentation": "https://github.com/Tin-Bui/jinja2_render",
+  "dependencies": [],
+  "codeowners": ["@Tin-Bui"],
+  "requirements": ["jinja2"]
+}
+
