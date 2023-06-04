@@ -5,7 +5,7 @@ import voluptuous as vol
 from homeassistant.helpers.service import async_register_admin_service
 from homeassistant.const import CONF_PATH
 from homeassistant.exceptions import HomeAssistantError
-import homeassistant.helpers.template
+from homeassistant.helpers.template import Template
 
 DOMAIN = "jinja2_render"
 
@@ -33,10 +33,14 @@ async def render_template_service(hass, call):
     output_path = resolve_path(call.data.get("output_path"), hass)
     logger.info(f"{DOMAIN}:Output file: {output_path}")
     
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(template_path)))
-    template = env.get_template(os.path.basename(template_path))
+    with open(template_path, "r") as template_file:
+        template_string = template_file.read()
 
-    rendered_template = template.render()
+    # Create a Home Assistant template from the template string
+    template = Template(template_string, hass)
+    
+    # Render the template
+    rendered_template = template.async_render()
 
     # Create the directory if it doesn't exist
     output_folder = os.path.dirname(output_path)
