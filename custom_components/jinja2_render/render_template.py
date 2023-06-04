@@ -5,6 +5,7 @@ import voluptuous as vol
 from homeassistant.helpers.service import async_register_admin_service
 from homeassistant.const import CONF_PATH
 from homeassistant.exceptions import HomeAssistantError
+import homeassistant.helpers.template
 
 DOMAIN = "jinja2_render"
 
@@ -52,6 +53,7 @@ async def async_setup(hass, config):
         }
     )
 
+    logger = logging.getLogger(__name__)
     logger.info(f"{DOMAIN}:Registering component.")  
 
     async def wrapper(call):
